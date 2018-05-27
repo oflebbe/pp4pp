@@ -65,8 +65,7 @@ cpdef timestep(double[:,:,:] X, double[:,:,:] Y, double[:,:] cylinderConcPerCell
                int ring, int t, int tau, double omega, double Am):
     cdef double flux
     cdef double x, y
-    cdef double k11, k12, k21, k22, k31, k32, k41, kk42
-    cdef double Xret, Yret
+    cdef double k11, k12, k21, k22, k31, k32, k41, k42
     cdef int cell
     for cell in range(0,ringsize): 
             flux = 0.0
