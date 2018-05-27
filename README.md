@@ -4,15 +4,12 @@ To be held at Tübix 2018
 
 ## Progressive Approach
 
-step0 (py and ipynb) : Initial Code
-step1 (py and ipynb) : Vector Code for numpy
-step2 (py and ipynb) : Minor updates
-
-step0-cython.ipynb (standalone in cython) : Cython Approach
-
-step2-numba (py and ipynb) : Numba Approach
-
-c/implementation (Initial Code in C and postprocessor)
+- step0 (py and ipynb) : Initial Code
+- step1 (py and ipynb) : Vector Code for numpy
+- step2 (py and ipynb) : Minor updates
+- step0-cython.ipynb (standalone in cython) : Cython Approach
+- step2-numba (py and ipynb) : Numba Approach
+- c/implementation (Initial Code in C and postprocessor)
 
 ## Note to self
 
