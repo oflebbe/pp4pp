@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define TAU 16
+#define TAU 800
 #define DURATION 5
 #define RINGSIZE 50
 #define RINGS 200
@@ -95,6 +95,7 @@ main()
 		for (int ring = 0; ring < RINGS; ring++) {
 			for (int cell = 0; cell < RINGSIZE; cell++) {
 				X[t][ring][cell] = 0.;
+                                Y[t][ring][cell] = 0.;
 			}
 		}
 	}
@@ -106,7 +107,7 @@ main()
 	for (int ring = 0; ring < RINGS; ring++) {
 		for (int cell = 0; cell < RINGSIZE; cell++) {
 			X0[cell][ring] = (0 - 0.5) * 0.1 + 0.406;
-			Y0[cell][ring] = (1 - 0.5) * 0.2 + 2.76;
+			Y0[cell][ring] = (0 - 0.5) * 0.2 + 2.76;
 		}
 	}
 
@@ -128,11 +129,9 @@ main()
 		for (int ring = 0; ring < RINGS; ring++) {
 			for (int cell = 0; cell < RINGSIZE; cell++) {
 				double		flux = 0.;
-
 				/* Sinus - Exitation */
 				if (ring <= 3 && 24 <= cell && cell <= 27)
 					X[index][ring][cell] = Am * 0.5 * (1 + cos(omega * t * h));
-
 				/* horizontal diffusion */
                 if (cell == 0) {
 					flux = Dxr * (X[index][ring][RINGSIZE - 1] - X[index][ring][cell])
@@ -157,13 +156,12 @@ main()
 					if (X[index][ring][cell] > X[index][ring + 1][cell])
 						flux -= Dxd * (X[index][ring][cell] - X[index][ring + 1][cell]);
 				}
-
 				/*
 				 * Feedback across ring, tau elements back in
 				 * time
 				 */
-				//if (t >= TAU)
-				//	flux += kt * (X[(t - TAU) % TAU][ring][(cell + RINGSIZE / 2) % RINGSIZE] - X[index][ring][cell]);
+				if (t >= TAU)
+					flux += kt * (X[(t - TAU) % TAU][ring][(cell + RINGSIZE / 2) % RINGSIZE] - X[index][ring][cell]);
 
 				float		x = X[index][ring][cell];
 				float		y = Y[index][ring][cell];
@@ -188,7 +186,6 @@ main()
        
         if (t%50 == 0 ) {
             printf("fertig\n");
-#if 0
             sprintf( buf, "/tmp/pic%02d.txt", filecounter++ );
             outf = fopen( buf, "w");
             for (int ring = 0; ring < RINGS; ring++) {
@@ -198,7 +195,6 @@ main()
                 fprintf(outf, "\n");
             }
             fclose(outf);
-#endif
         }
         x = y = 0.;
         for (int cell = 0; cell < RINGSIZE; cell++) {
